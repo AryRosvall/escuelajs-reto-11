@@ -1,5 +1,7 @@
 const express = require('express');
+const auth = require('./routes/auth');
 const app = express();
+
 
 const { config } = require('./config');
 const platziStore = require('./routes')
@@ -9,6 +11,8 @@ app.get('/', (req, res) => {
   res.send(`UserInfo: ${userInfo}`);
 });
 
+app.use(express.json());
+auth(app);
 platziStore(app);
 
 app.listen(config.port, err => {
